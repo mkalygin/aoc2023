@@ -52,15 +52,20 @@ defmodule GameCalculator do
     end
   end
 
-  def calculate_powers(stream) do
+  def parse(stream) do
     stream
     |> Stream.map(&Game.parse/1)
+  end
+
+  def sum(stream) do
+    stream
     |> Stream.map(&Game.power/1)
+    |> Enum.sum()
   end
 end
 
 File.stream!("./inputs/02.txt")
 |> Stream.map(&String.trim_trailing/1)
-|> GameCalculator.calculate_powers()
-|> Enum.sum()
+|> GameCalculator.parse()
+|> GameCalculator.sum()
 |> IO.inspect()

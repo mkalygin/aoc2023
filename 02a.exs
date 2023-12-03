@@ -46,7 +46,7 @@ defmodule GameValidator do
     end
   end
 
-  def validate(stream) do
+  def parse(stream) do
     stream
     |> Stream.map(&Game.parse/1)
     |> Stream.filter(&Game.valid?/1)
@@ -61,6 +61,6 @@ end
 
 File.stream!("./inputs/02.txt")
 |> Stream.map(&String.trim_trailing/1)
-|> GameValidator.validate()
+|> GameValidator.parse()
 |> GameValidator.sum()
 |> IO.inspect()
